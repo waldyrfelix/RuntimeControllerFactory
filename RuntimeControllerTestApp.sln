@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuntimeControllerTestApp", "RuntimeControllerTestApp\RuntimeControllerTestApp.csproj", "{43BC115E-3685-4027-95A5-9E3E1D51E46E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuntimeController", "RuntimeController\RuntimeController.csproj", "{229A261D-5C8D-434E-8BDC-869DB0AC88DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{229A261D-5C8D-434E-8BDC-869DB0AC88DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229A261D-5C8D-434E-8BDC-869DB0AC88DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229A261D-5C8D-434E-8BDC-869DB0AC88DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229A261D-5C8D-434E-8BDC-869DB0AC88DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43BC115E-3685-4027-95A5-9E3E1D51E46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43BC115E-3685-4027-95A5-9E3E1D51E46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43BC115E-3685-4027-95A5-9E3E1D51E46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43BC115E-3685-4027-95A5-9E3E1D51E46E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = RuntimeControllerTestApp\RuntimeControllerTestApp.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
