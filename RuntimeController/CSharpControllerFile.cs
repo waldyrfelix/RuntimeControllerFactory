@@ -35,34 +35,42 @@ using System.Text.RegularExpressions;
 
 namespace Fusonic.Web.Mvc.RuntimeController
 {
-	public class CSharpControllerFile
-	{
-		private CSharpControllerFile ()
-		{}
-		
-		public static CSharpControllerFile Parse(string source)
-		{
-			Regex regex = new Regex("namespace(.*)\n{");
-			Match match = regex.Match(source);
-			
-			if(match.Success)
-			{
-				source = source.TrimEnd(new char[] {' ', '\n'});
-				source = source.Substring(0, source.Length - 1);
-				source = "using " + match.Groups[1] + ";\n" 
-					+ source.Replace(match.Value, string.Empty);
-			}
-			
-			return new CSharpControllerFile()
-			{
-				ClassSource = source
-			};
-		}
-		
-		public string ClassSource
-		{
-			get;
-			private set;
-		}
-	}
+    public class CSharpControllerFile
+    {
+        private CSharpControllerFile() { }
+
+        public string ClassName { get; private set; }
+        public string Namespace { get; private set; }
+        public string ClassSource { get; private set; }
+        public string FullClassName { get; private set; }
+
+        #region Static Members
+
+        private static Regex regexNamespace = new Regex(@"namespace\s+([\w\.]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static Regex regexClassName = new Regex(@"class\s+([\w\.]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        public static CSharpControllerFile Parse(string source)
+        {
+            Match matchClassName = regexClassName.Match(source);
+            Match matchNamespace = regexNamespace.Match(source);
+            if (!matchClassName.Success || !matchNamespace.Success)
+            {
+                return null;
+            }
+
+            string className = matchClassName.Groups[1].Value.Trim();
+            string @namespace = matchNamespace.Groups[1].Value.Trim();
+
+            return new CSharpControllerFile()
+            {
+                ClassSource = source,
+                ClassName = className,
+                FullClassName = String.Format("{0}.{1}", @namespace, className),
+                Namespace = @namespace
+            };
+        }
+
+        #endregion
+
+    }
 }

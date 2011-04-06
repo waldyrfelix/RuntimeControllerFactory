@@ -25,22 +25,23 @@
 // THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Mono.CSharp;
 using System.IO;
+using System.Web.Routing;
 
 namespace Fusonic.Web.Mvc.RuntimeController
 {
-	public class DefaultPathProvider : IRuntimeControllerPathProvider
-	{
-		public string GetPath (RequestContext requestContext, string controllerName)
-		{
-			return controllerName != null ? AppDomain.CurrentDomain.BaseDirectory +
-				Path.DirectorySeparatorChar + "Controllers" + Path.DirectorySeparatorChar + controllerName + ".cs" : null;
-		}
-	}
+    public class DefaultPathProvider : IRuntimeControllerPathProvider
+    {
+        public string GetPath(RequestContext requestContext, string controllerName)
+        {
+            if (controllerName == null)
+            {
+                return null;
+            }
+
+            //requestContext.HttpContext.Server.MapPath
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Controllers", controllerName + ".cs");
+        }
+    }
 }

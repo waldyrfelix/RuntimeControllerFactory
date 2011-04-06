@@ -23,18 +23,15 @@ namespace RuntimeControllerTestApp
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-			       RegisterRoutes(RouteTable.Routes);
-						
-			RuntimeControllerFactory factory = new RuntimeControllerFactory(new DefaultPathProvider());
-			factory.ReferenceAssembly(Assembly.GetExecutingAssembly());
-			
-			ControllerBuilder.Current.SetControllerFactory(factory);
+            RegisterRoutes(RouteTable.Routes);
+
+            RuntimeControllerFactory factory = new RuntimeControllerFactory(new DefaultPathProvider());
+            ControllerBuilder.Current.SetControllerFactory(factory);
         }
     }
 }

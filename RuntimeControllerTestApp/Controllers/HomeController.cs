@@ -12,7 +12,7 @@ namespace RuntimeControllerTestApp.Controllers
     {
         public ActionResult Index()
         {
-            ViewData["Message"] = "Hello Mono on Master";
+            ViewData["Message"] = "Hello .Net Framework!";
 			
             return View();
         }
