@@ -1,4 +1,4 @@
 Licence: MIT/X11
 
 An Asp.net MVC 2 ControllerFactory including some classes which allows you to edit your Controller classes at runtime, 
-without restarting your application - powered by Mono C# compiler as a service..
+without restarting your application - powered by Microsoft.Csharp implementation on .Net Framework 4.0 for Windows.
