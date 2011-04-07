@@ -35,22 +35,33 @@ using Microsoft.CSharp;
 using System.IO;
 using System.Reflection;
 using System.CodeDom.Compiler;
+using Ninject;
 
 namespace Fusonic.Web.Mvc.RuntimeController
 {
     public class RuntimeControllerFactory : DefaultControllerFactory
     {
         private readonly IRuntimeControllerPathProvider pathProvider;
+        private readonly IKernel kernel;
+
+        #region Constructors
 
         public RuntimeControllerFactory()
-        {
-            this.pathProvider = new DefaultPathProvider();
-        }
+            : this(null as IKernel) { }
+
+        public RuntimeControllerFactory(IKernel kernel)
+            : this(kernel, new DefaultPathProvider()) { }
 
         public RuntimeControllerFactory(IRuntimeControllerPathProvider pathProvider)
+            : this(null, pathProvider) { }
+
+        public RuntimeControllerFactory(IKernel kernel, IRuntimeControllerPathProvider pathProvider)
         {
+            this.kernel = kernel;
             this.pathProvider = pathProvider;
         }
+
+        #endregion
 
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
@@ -63,9 +74,15 @@ namespace Fusonic.Web.Mvc.RuntimeController
 
             var codeProvider = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, controllerFile.ClassSource);
 
-            object controllerInstance = codeProvider.CompiledAssembly.CreateInstance(controllerFile.FullClassName);
-
-            return (IController)controllerInstance ?? base.GetControllerInstance(requestContext, controllerType);
+            if (kernel == null)
+            {
+                object controllerInstance = codeProvider.CompiledAssembly.CreateInstance(controllerFile.FullClassName);
+                return (IController)controllerInstance ?? base.GetControllerInstance(requestContext, controllerType);
+            }
+            else
+            {
+                return (IController)kernel.Get(codeProvider.CompiledAssembly.GetType(controllerFile.FullClassName));
+            }
         }
 
         private void addReferencedAssemblies(CompilerParameters parameters)

@@ -7,6 +7,7 @@ using System.Web.Routing;
 using Fusonic.Web.Mvc.RuntimeController;
 using System.Reflection;
 using RuntimeControllerTestApp.Infra;
+using Ninject;
 
 namespace RuntimeControllerTestApp
 {
@@ -31,10 +32,10 @@ namespace RuntimeControllerTestApp
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
-            RuntimeControllerFactory factory = new RuntimeControllerFactory();
-            ControllerBuilder.Current.SetControllerFactory(factory);
+            IKernel kernel = new StandardKernel(new NinjectTestModule());
 
-            /*ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());*/
+            RuntimeControllerFactory factory = new RuntimeControllerFactory(kernel);
+            ControllerBuilder.Current.SetControllerFactory(factory);
         }
     }
 }
