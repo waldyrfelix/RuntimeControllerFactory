@@ -3,6 +3,7 @@
 //
 // Author:
 // David Roth <david.roth@fusonic.net>
+// Waldyr Felix <waldyrfelix@gmail.com>
 //
 // Copyright (c) 2011 Fusonic GmbH (http://www.fusonic.net)
 //

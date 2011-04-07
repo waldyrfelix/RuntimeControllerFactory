@@ -32,10 +32,8 @@ namespace RuntimeControllerTestApp
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
-            IKernel kernel = new StandardKernel(new NinjectTestModule());
-
-            RuntimeControllerFactory factory = new RuntimeControllerFactory(kernel);
-            ControllerBuilder.Current.SetControllerFactory(factory);
+            RuntimeControllerFactory factory = new RuntimeControllerFactory(new RuntimeDependencyInjector());
+            ControllerBuilder.Current.SetControllerFactory(factory); 
         }
     }
 }

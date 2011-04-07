@@ -3,6 +3,7 @@
 //
 // Author:
 // David Roth <david.roth@fusonic.net>
+// Waldyr Felix <waldyrfelix@gmail.com>
 //
 // Copyright (c) 2011 Fusonic GmbH (http://www.fusonic.net)
 //
@@ -47,11 +48,11 @@ namespace Fusonic.Web.Mvc.RuntimeController
         #region Static Members
 
         private static Regex regexNamespace = new Regex(@"namespace\s+([\w\.]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static Regex regexClassName = new Regex(@"class\s+([\w\.]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static Regex regexClass = new Regex(@"class\s+([\w\.]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static CSharpControllerFile Parse(string source)
         {
-            Match matchClassName = regexClassName.Match(source);
+            Match matchClassName = regexClass.Match(source);
             Match matchNamespace = regexNamespace.Match(source);
             if (!matchClassName.Success || !matchNamespace.Success)
             {

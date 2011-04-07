@@ -35,29 +35,28 @@ using Microsoft.CSharp;
 using System.IO;
 using System.Reflection;
 using System.CodeDom.Compiler;
-using Ninject;
 
 namespace Fusonic.Web.Mvc.RuntimeController
 {
     public class RuntimeControllerFactory : DefaultControllerFactory
     {
         private readonly IRuntimeControllerPathProvider pathProvider;
-        private readonly IKernel kernel;
+        private readonly IDependencyInjector denpedencyInjector;
 
         #region Constructors
 
         public RuntimeControllerFactory()
-            : this(null as IKernel) { }
+            : this(null as IDependencyInjector) { }
 
-        public RuntimeControllerFactory(IKernel kernel)
-            : this(kernel, new DefaultPathProvider()) { }
+        public RuntimeControllerFactory(IDependencyInjector denpedencyInjector)
+            : this(denpedencyInjector, new DefaultPathProvider()) { }
 
         public RuntimeControllerFactory(IRuntimeControllerPathProvider pathProvider)
             : this(null, pathProvider) { }
 
-        public RuntimeControllerFactory(IKernel kernel, IRuntimeControllerPathProvider pathProvider)
+        public RuntimeControllerFactory(IDependencyInjector denpedencyInjector, IRuntimeControllerPathProvider pathProvider)
         {
-            this.kernel = kernel;
+            this.denpedencyInjector = denpedencyInjector;
             this.pathProvider = pathProvider;
         }
 
@@ -74,14 +73,14 @@ namespace Fusonic.Web.Mvc.RuntimeController
 
             var codeProvider = new CSharpCodeProvider().CompileAssemblyFromSource(parameters, controllerFile.ClassSource);
 
-            if (kernel == null)
+            if (denpedencyInjector == null)
             {
                 object controllerInstance = codeProvider.CompiledAssembly.CreateInstance(controllerFile.FullClassName);
                 return (IController)controllerInstance ?? base.GetControllerInstance(requestContext, controllerType);
             }
             else
             {
-                return (IController)kernel.Get(codeProvider.CompiledAssembly.GetType(controllerFile.FullClassName));
+                return denpedencyInjector.CreateControllerInstance(codeProvider.CompiledAssembly.GetType(controllerFile.FullClassName));
             }
         }
 
