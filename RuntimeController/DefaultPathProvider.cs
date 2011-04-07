@@ -39,9 +39,9 @@ namespace Fusonic.Web.Mvc.RuntimeController
                 return null;
             }
 
-            //requestContext.HttpContext.Server.MapPath
-
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Controllers", controllerName + ".cs");
+            string area = Convert.ToString(requestContext.RouteData.DataTokens["Area"]);
+            string relativePath = Path.Combine("\\", String.IsNullOrEmpty(area) ? String.Empty : "Areas", area, "Controllers", controllerName + ".cs");
+            return requestContext.HttpContext.Server.MapPath(relativePath);
         }
     }
 }

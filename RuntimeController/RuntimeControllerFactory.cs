@@ -3,6 +3,7 @@
 //
 // Author:
 // David Roth <david.roth@fusonic.net>
+// Waldyr Felix <waldyrfelix@gmail.com>
 //
 // Copyright (c) 2011 Fusonic GmbH (http://www.fusonic.net)
 //
@@ -40,6 +41,11 @@ namespace Fusonic.Web.Mvc.RuntimeController
     public class RuntimeControllerFactory : DefaultControllerFactory
     {
         private readonly IRuntimeControllerPathProvider pathProvider;
+
+        public RuntimeControllerFactory()
+        {
+            this.pathProvider = new DefaultPathProvider();
+        }
 
         public RuntimeControllerFactory(IRuntimeControllerPathProvider pathProvider)
         {
