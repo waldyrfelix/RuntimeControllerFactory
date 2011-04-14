@@ -1,10 +1,10 @@
 Licence: MIT/X11
 
-An Asp.net MVC 2 ControllerFactory including some classes which allows you to edit your Controller classes at runtime, 
+An ASP.NET MVC ControllerFactory including some classes which allows you to edit your Controller classes at runtime, 
 without restarting your application - powered by Microsoft.CSharp implementation on .Net Framework 4.0 for Windows.
 
 ~~
-Um ControllerFactory que permite editar os controllers em tempo de execução, ou seja, sem precisar compilar novamente
-a aplicação inteira - criado usando funcionalidades do Microsoft.CSharp sobre o Microsoft .Net Framework 4.0
+Um ControllerFactory para ASP.NET MVC que permite editar os controllers em tempo de execucao, ou seja, sem precisar compilar novamente
+a aplicacao inteira - criado usando funcionalidades do Microsoft.CSharp sobre o Microsoft .Net Framework 4.0
 
 Mais detalhes em: http://waldyrfelix.net/blog/2011/04/13/runtimecontrollerfactory
